@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage User Permissions</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+<div class="flex">
+  <!-- Sidebar -->
+  <div class="w-1/5 bg-white h-screen shadow-lg">
+    <div class="p-5">
+      <h2 class="text-lg font-bold mb-4">HOME</h2>
+      <ul>
+        <li class="mb-3">
+          <a href="#" class="flex items-center text-blue-600 font-semibold">
+            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+            Dashboard
+          </a>
+        </li>
+        <li class="mb-2">
+          <a href="#" class="flex items-center text-gray-700 hover:text-blue-600">
+            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M9 21V9m0 0V3"></path>
+            </svg>
+            Manage Users
+          </a>
+          <ul class="ml-8 mt-2 text-sm">
+            <li><a href="#" class="block hover:text-blue-600">Users</a></li>
+            <li><a href="#" class="block hover:text-blue-600">Roles</a></li>
+            <li><a href="#" class="block hover:text-blue-600">Groups</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="mt-8">
+        <div class="flex items-center">
+          <img class="w-10 h-10 rounded-full" src="https://i.pravatar.cc/100" alt="Admin Avatar">
+          <div class="ml-3">
+            <h3 class="font-semibold">Abhishek Chandane</h3>
+            <p class="text-xs text-gray-500">Admin</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="w-4/5 p-8">
+    <div class="bg-blue-100 p-5 rounded-lg shadow-md">
+      <h2 class="text-xl font-semibold mb-2">Roles Table</h2>
+      <p class="text-sm text-gray-600">Home • Manage Roles</p>
+    </div>
+
+    <div class="mt-6 bg-white shadow-md rounded-lg p-6">
+      <div class="flex justify-between items-center">
+        <h3 class="text-lg font-medium">Roles</h3>
+        <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Create Role</button>
+      </div>
+
+      <table class="w-full mt-4 border-collapse border border-gray-200">
+        <thead>
+          <tr class="bg-gray-100">
+            <th class="border border-gray-200 px-4 py-2">Name</th>
+            <th class="border border-gray-200 px-4 py-2">Description</th>
+            <th class="border border-gray-200 px-4 py-2">Permission Type</th>
+            <th class="border border-gray-200 px-4 py-2">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="bg-white hover:bg-gray-100">
+            <td class="border px-4 py-2 flex items-center">
+              <img class="w-8 h-8 rounded-full mr-3" src="https://i.pravatar.cc/100?u=1" alt="User Avatar">
+              <div>
+                <h4 class="font-semibold">Sunil Joshi</h4>
+                <p class="text-xs text-gray-500">Web Designer</p>
+              </div>
+            </td>
+            <td class="border px-4 py-2">Elite Admin</td>
+            <td class="border px-4 py-2">
+              <span class="bg-green-100 text-green-600 px-2 py-1 rounded text-sm">Full Access</span>
+            </td>
+            <td class="border px-4 py-2">
+              <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

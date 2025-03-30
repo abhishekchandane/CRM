@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Permissions UI</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    table th, table td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+    .role-select {
+      margin: 10px 0;
+    }
+    .permission-group {
+      text-align: left;
+    }
+    .btn-container {
+      text-align: center;
+      margin: 20px 0;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      background-color: #007BFF;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Assign User Permissions</h2>
+
+  <!-- Role Selection -->
+  <div class="role-select">
+    <label for="role">Select Role: </label>
+    <select id="role" name="role">
+      <option value="admin">Admin</option>
+      <option value="editor">Editor</option>
+      <option value="viewer">Viewer</option>
+    </select>
+  </div>
+
+  <!-- Permissions Table -->
+  <table>
+    <thead>
+      <tr>
+        <th>Permission Module</th>
+        <th>View</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="permission-group">Dashboard</td>
+        <td><input type="checkbox" name="permissions[dashboard_view]"></td>
+        <td><input type="checkbox" name="permissions[dashboard_edit]"></td>
+        <td><input type="checkbox" name="permissions[dashboard_delete]"></td>
+      </tr>
+      <tr>
+        <td class="permission-group">User Management</td>
+        <td><input type="checkbox" name="permissions[user_view]"></td>
+        <td><input type="checkbox" name="permissions[user_edit]"></td>
+        <td><input type="checkbox" name="permissions[user_delete]"></td>
+      </tr>
+      <tr>
+        <td class="permission-group">Reports</td>
+        <td><input type="checkbox" name="permissions[reports_view]"></td>
+        <td><input type="checkbox" name="permissions[reports_edit]"></td>
+        <td><input type="checkbox" name="permissions[reports_delete]"></td>
+      </tr>
+      <tr>
+        <td class="permission-group">Settings</td>
+        <td><input type="checkbox" name="permissions[settings_view]"></td>
+        <td><input type="checkbox" name="permissions[settings_edit]"></td>
+        <td><input type="checkbox" name="permissions[settings_delete]"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Save Button -->
+  <div class="btn-container">
+    <button type="submit">Save Permissions</button>
+  </div>
+
+  
+</div>
+
+</body>
+</html>
