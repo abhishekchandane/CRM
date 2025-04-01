@@ -73,7 +73,7 @@
               <h4 class="card-title mb-0"> Create Role    </h4>
 
               <div>
-                <button class="btn btn-primary">button</button>
+                <a href="roles_list.php" class="btn btn-primary">Role List</a>
               </div>
 
             </div>

@@ -92,14 +92,17 @@
 
         
         <div class="card w-100 position-relative overflow-hidden">
-            <div class="px-4 py-3 border-bottom d-flex justify-content-between">
+            <div class="px-4 py-3 border-bottom  text-end">
               <h4 class="card-title mb-0">     </h4>
 
               <div>
-                <a href="create_role.php" class="btn btn-primary ">
+                <a href="create_role.php" class="btn btn-primary mx-1">
+                    Create New Role
+                </a>
+                <a href="create_role.php" class="btn btn-primary mx-1">
                     Choose Action
                 </a>
-              </div>
+              </div> 
 
             </div>
             <div class="card-body p-4">
@@ -139,13 +142,15 @@
 
  
     <!-- Modal -->
-    <div class="modal fade" id="scroll-long-outer-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="scroll-long-outer-modal" aria-hidden="true">
+    <div class="modal fade" id="scroll-long-outer-modal" data-role-id="" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="scroll-long-outer-modal" aria-hidden="true">
+      
         <div class="modal-dialog modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header d-flex align-items-center">
                     <h5 class="text-primary modal-title" id="myLargeModalLabel">
                         Revoke Permissions
                     </h5>
+                    <span id="demo"></span>
                     
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -158,7 +163,7 @@
                             <div class="col-md-6 mb-3">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="d-flex flex-column">
-                                        <label class="fw-bold" for="view_dashboard">View Dashboard</label>
+                                        <h6 class="fw-bold" for="view_dashboard">View Dashboard</h6>
                                         <small class="text-muted">Allows access to the main dashboard overview.</small>
                                     </div>
                                     <div class="form-check form-switch">
@@ -171,7 +176,7 @@
                             <div class="col-md-6 mb-3">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="d-flex flex-column">
-                                        <label class="fw-bold" for="manage_users">Manage Users</label>
+                                        <h6 class="fw-bold" for="manage_users">Manage Users</h6>
                                         <small class="text-muted">Allows managing user accounts and roles.</small>
                                     </div>
                                     <div class="form-check form-switch">
@@ -184,7 +189,7 @@
                             <div class="col-md-6 mb-3">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="d-flex flex-column">
-                                        <label class="fw-bold" for="edit_settings">Edit Settings</label>
+                                        <h6 class="fw-bold" for="edit_settings">Edit Settings</h6>
                                         <small class="text-muted">Grants access to change system settings.</small>
                                     </div>
                                     <div class="form-check form-switch">
@@ -197,7 +202,7 @@
                                                         <div class="col-md-6">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="d-flex flex-column">
-                                        <label class="fw-bold" for="access_reports">Access Reports</label>
+                                        <h6 class="fw-bold" for="access_reports">Access Reports</h6>
                                         <small class="text-muted">Allows viewing and exporting system reports.</small>
                                     </div>
                                     <div class="form-check form-switch">
@@ -210,7 +215,7 @@
                             <div class="col-md-6">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="d-flex flex-column">
-                                        <label class="fw-bold" for="modify_permissions">Modify Permissions</label>
+                                        <h6 class="fw-bold" for="modify_permissions">Modify Permissions</h6>
                                         <small class="text-muted">Enables modifying user access levels.</small>
                                     </div>
                                     <div class="form-check form-switch">
@@ -223,11 +228,11 @@
                             <div class="col-md-6">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="d-flex flex-column">
-                                        <label class="fw-bold" for="modify_permissions">Modify Permissions</label>
-                                        <small class="text-muted">Enables modifying user access levels.</small>
+                                        <h6 class="fw-bold" for="modify_permissions">  Upcoming Permissions</h6>
+                                        <small class="text-muted">       Upcoming Permissions   .</small>
                                     </div>
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" name="permissions[]" value="modify_permissions" id="modify_permissions">
+                                        <input class="form-check-input" type="checkbox" name="permissions[]" value="upcoming_permissions" id="upcoming_permissions">
                                     </div>
                                 </div>
                             </div>
@@ -238,7 +243,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn bg-danger-subtle text-danger  waves-effect text-start" data-bs-dismiss="modal">
+                    <button id="apply-changes-btn" type="button" class="btn bg-danger-subtle text-danger  waves-effect text-start" data-bs-dismiss="modal">
                         Apply Changes
                     </button>
                     <button type="button" class="btn bg-danger-subtle text-danger  waves-effect text-start" data-bs-dismiss="modal">
@@ -250,13 +255,7 @@
     </div>
 
 
-
-
-
-
-
-
-
+ 
 
 
       <script>
@@ -538,6 +537,8 @@
         fetchRoles();
     });
 
+
+
     function fetchRoles() {
         $.ajax({
             url: "api/roles/fetch_roles.php",
@@ -546,9 +547,9 @@
             success: function(response) {
                 if (response.status === "success") {
                     let rolesHtml = ""; 
-                    response.data.forEach(role=>{
-                      alert(role.id);
-                    });
+                    // response.data.forEach(role=>{
+                    //   alert(role.id);
+                    // });
                     response.data.forEach(role => {
                       // Parse the permissions JSON string into an array and count them
                       let permissionsArray = JSON.parse(role.permissions || "[]"); 
@@ -556,9 +557,9 @@
 
                       // Decide which icon to show based on permissions count
                       let iconHtml = permissionsCount >= 3 
-                      ? `<svg data-bs-toggle="modal" data-bs-target="#scroll-long-outer-modal"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock-check"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M11.5 21h-4.5a2 2 0 0 1 -2 -2v-6a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v.5" /><path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" /><path d="M8 11v-4a4 4 0 1 1 8 0v4" /><path d="M15 19l2 2l4 -4" /></svg>` 
-                      : `<svg data-bs-toggle="modal" data-bs-target="#scroll-long-outer-modal"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6z" /><path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" /><path d="M8 11v-4a4 4 0 1 1 8 0v4" /></svg>`;
-                                
+                        ? `<svg class="role-icon" data-role-id="${role.id}" data-bs-toggle="modal" data-bs-target="#scroll-long-outer-modal" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock-check"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M11.5 21h-4.5a2 2 0 0 1 -2 -2v-6a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v.5" /><path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" /><path d="M8 11v-4a4 4 0 1 1 8 0v4" /><path d="M15 19l2 2l4 -4" /></svg>` 
+                        : `<svg class="role-icon" data-role-id="${role.id}" data-bs-toggle="modal" data-bs-target="#scroll-long-outer-modal" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6z" /><path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" /><path d="M8 11v-4a4 4 0 1 1 8 0v4" /></svg>`;
+
                             rolesHtml += `
                               <tr>
                                   <td>${role.id}</td>
@@ -579,17 +580,96 @@
                                   <td>${ iconHtml }</td>
                               </tr>
                           `;
-                        });
-                            $("#rolesList").html(rolesHtml);
-                          } else {
-                            $("#rolesList").html(`<tr><td colspan="5" class="text-center text-danger">${response.message}</td></tr>`);
-                          }
-                          },
-                          error: function() {
-                              $("#rolesList").html(`<tr><td colspan="5" class="text-center text-danger">Failed to fetch roles.</td></tr>`);
-                          }
+                    });
+
+
+                  $(document).on("click", ".role-icon", function () {
+                      let roleId = $(this).data("role-id");  // Get clicked role ID
+
+                      // Find the role object from the response (assuming it's stored in `rolesData`)
+                      let role = response.data.find(r => r.id == roleId);
+                      if (!role) return;
+
+                      // Set the role ID in the modal before opening it
+                      $("#scroll-long-outer-modal").attr("data-role-id", roleId);
+
+                      // Parse the role's permissions
+                      let rolePermissions = JSON.parse(role.permissions || "[]");
+
+                      // Uncheck all checkboxes first
+                      $("input[type='checkbox'][name='permissions[]']").prop("checked", false);
+
+                      // Check only the ones that match the role's permissions
+                      rolePermissions.forEach(permission => {
+                          $(`input[type='checkbox'][value='${permission}']`).prop("checked", true);
                       });
-                    }
+
+                      // Open the modal (Bootstrap handles this automatically because of data-bs-toggle)
+                  });
+
+                  $("#rolesList").html(rolesHtml);
+                } else {
+                  $("#rolesList").html(`<tr><td colspan="5" class="text-center text-danger">${response.message}</td></tr>`);
+                }
+            },
+            error: function() {
+                $("#rolesList").html(`<tr><td colspan="5" class="text-center text-danger">Failed to fetch roles.</td></tr>`);
+            }
+        });
+    }
+
+
+    $(document).on("click", "#apply-changes-btn", function () {
+            let roleId = $("#scroll-long-outer-modal").attr("data-role-id"); // Retrieve stored role ID
+
+            if (!roleId) {
+                alert("Error: No role ID found.");
+                return;
+            }
+
+            // Collect selected permissions
+            let selectedPermissions = [];
+            $("input[type='checkbox'][name='permissions[]']:checked").each(function () {
+                selectedPermissions.push($(this).val());
+            });
+
+            $.ajax({
+                url: "api/roles/update-role-permissions.php",  // Your API endpoint
+                  type: "POST",
+                  data: JSON.stringify({ role_id: roleId, permissions: selectedPermissions }),
+                  contentType: "application/json",
+                  dataType: "json",
+                  success: function(response) {
+                      if (response.status === "success") {
+                          showToast("Success", response.message, "success", "ti ti-check-circle");
+                          
+                          // **Update permissions in the table** (role list UI)
+                          let updatedPermissionsHtml = selectedPermissions.map(perm => `<li>${perm}</li>`).join("");
+                          $(`.role-icon[data-role-id='${roleId}']`)
+                              .closest("tr")
+                              .find(".custom-tooltip ul")
+                              .html(updatedPermissionsHtml);
+
+                          // **Update modal content dynamically**
+                          $("#permissionsList").html(updatedPermissionsHtml);
+                        
+                          // **Wait for the toast message, then refresh the page**
+                          setTimeout(() => {
+                              window.location.reload();
+                          }, 3000); // Refresh after 3 seconds
+
+                      } else {
+                          showToast("Error", response.message, "danger", "ti ti-alert-circle");
+                      }
+                  },
+                  error: function() {
+                    showToast("Error", "Failed to update permissions.", "danger", "ti ti-alert-circle");
+                  }
+            });
+    
+    });
+  
+
 
     function showToast(title, message, type, iconClass) {
                 // Remove any previous toast to avoid duplication
@@ -618,6 +698,12 @@
 
 
   </script>
+
+ 
+ 
 </body>
 
 </html>
+
+
+<!-- Role Updating Functionality AND Fetching Role's Permission  in the Modal , When Click on Particular Role's Display its Permissions  -->
